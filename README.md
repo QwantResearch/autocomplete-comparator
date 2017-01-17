@@ -1,4 +1,5 @@
 # Autocomplete comparator
+[![Build Status](https://travis-ci.org/CanalTP/autocomplete-comparator.svg?branch=master)](https://travis-ci.org/CanalTP/autocomplete-comparator)
 
 Compares different autocompletes
 
