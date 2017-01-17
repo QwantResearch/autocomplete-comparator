@@ -10,10 +10,8 @@ export default function Autocomplete({title, error, labels}) {
                     {error}
                 </div>}
             </div>
-
-            <ul>
-                { !error && labels.map((label, i) => <li key={i}>{label}</li>) }
-            </ul>
+            {!error &&
+                <ul>{labels.map((label, i) => <li key={i}>{label}</li>)}</ul>}
         </div>
     )
 }

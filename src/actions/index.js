@@ -19,51 +19,44 @@ const receiveAutocompleteError= (autocomplete_name, error_message) => {
     }
 }
 
-const requestBragi = (term) => dispatch => {
-    return axios.get(`${process.env.REACT_APP_BRAGI_HOST}/autocomplete`, {
-        params: {
-            q: term,
-        }
-    })
-    .then(response => {
-        dispatch(receiveAutocompleteResponse(
-            'bragi',
-            response.data.features.map(feature => feature.properties.geocoding.label))
-        );
-    })
-    .catch(error => {
-        dispatch(receiveAutocompleteError('bragi', error.message));
-    });
-};
-
-const requestKraken = (term) => dispatch => {
-    return axios.get(`${process.env.REACT_APP_NAVITIA_HOST}`, {
-        params: {
-            q: term,
-        },
-        headers: {
-            'Authorization': process.env.REACT_APP_NAVITA_TOKEN
-        }
-    })
-    .then(response => {
-        const labels = response.data.hasOwnProperty("places")
-            ? response.data.places.map(place => place.name)
-            : [];
-
-        dispatch(receiveAutocompleteResponse(
-            'kraken',
-            labels
-        ));
-    })
-    .catch(error => {
-        dispatch(receiveAutocompleteError('kraken', error.message));
-    });
+const sendRequest = (url, params, autocomplete, successCallback, headers = {}) => dispatch => {
+    return axios.get(url, {params, headers})
+        .then(response => {
+            dispatch(receiveAutocompleteResponse(
+                autocomplete,
+                successCallback(response)
+            ));
+        })
+        .catch(error => {
+            dispatch(receiveAutocompleteError(autocomplete, error.message));
+        });
 };
 
 export const requestAutocompletes = (term = null) => {
     const thunk = dispatch => Promise.all([
-        dispatch(requestBragi(term)),
-        dispatch(requestKraken(term)),
+        dispatch(sendRequest(
+            `${process.env.REACT_APP_BRAGI_HOST}/autocomplete`,
+            { q: term},
+            'bragi',
+            response => response.data.features.map(feature => feature.properties.geocoding.label)
+        )),
+        dispatch(sendRequest(
+            process.env.REACT_APP_NAVITIA_HOST,
+            { q: term},
+            'kraken',
+            response => {
+                return response.data.hasOwnProperty("places")
+                    ? response.data.places.map(place => place.name)
+                    : [];
+            },
+            { 'Authorization': process.env.REACT_APP_NAVITA_TOKEN }
+        )),
+        dispatch(sendRequest(
+            'http://api-adresse.data.gouv.fr/search',
+            { q: term},
+            'bano',
+            response => response.data.features.map(feature => feature.properties.label)
+        )),
     ]);
 
     thunk.meta = {
