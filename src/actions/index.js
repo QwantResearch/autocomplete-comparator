@@ -61,8 +61,17 @@ const requestKraken = (term) => dispatch => {
 };
 
 export const requestAutocompletes = (term = null) => {
-    return dispatch => Promise.all([
+    const thunk = dispatch => Promise.all([
         dispatch(requestBragi(term)),
         dispatch(requestKraken(term)),
     ]);
+
+    thunk.meta = {
+        debounce: {
+            time: 500,
+            key: 'request-autocompletes-action'
+        }
+    };
+
+    return thunk;
 }

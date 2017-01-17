@@ -4662,6 +4662,10 @@ redux:
     loose-envify "^1.1.0"
     symbol-observable "^1.0.2"
 
+redux-debounced:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/redux-debounced/-/redux-debounced-0.3.0.tgz#d79d69df8b6164b89b771619afe071805903488a"
+
 redux-thunk:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/redux-thunk/-/redux-thunk-2.1.0.tgz#c724bfee75dbe352da2e3ba9bc14302badd89a98"
