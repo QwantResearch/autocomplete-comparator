@@ -27,6 +27,12 @@ class AutocompleteComparator extends Component {
                         labels={this.props.kraken.labels}
                         error={this.props.kraken.error} />
                 </div>
+                <div className="col-md-3">
+                    <Autocomplete
+                        title="Bano"
+                        labels={this.props.bano.labels}
+                        error={this.props.bano.error} />
+                </div>
             </div>
         </div>
         );

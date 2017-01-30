@@ -4,7 +4,7 @@ import {
 } from '../actions';
 
 const autocompletes = [
-    'bragi', 'kraken'
+    'bragi', 'kraken', 'bano'
 ];
 
 const initialState = autocompletes.reduce((state, autocomplete) => {
