@@ -10,7 +10,8 @@ const autocompletes = [
 const initialState = autocompletes.reduce((state, autocomplete) => {
     state[autocomplete] = {
         labels: [],
-        error: false
+        error: false,
+        request_time: 0,
     };
 
     return state;
@@ -23,7 +24,8 @@ export default function(state = initialState, action) {
                 ...state,
                 [action.autocomplete]: {
                     ...state[action.autocomplete],
-                    labels: action.labels
+                    labels: action.labels,
+                    request_time: action.request_time,
                 }
             };
         case RECEIVE_AUTOCOMPLETE_ERROR:

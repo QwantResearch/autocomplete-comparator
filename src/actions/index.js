@@ -3,11 +3,12 @@ export const RECEIVE_AUTOCOMPLETE_ERROR = 'RECEIVE_AUTOCOMPLETE_ERROR';
 
 import axios from 'axios';
 
-const receiveAutocompleteResponse = (autocomplete_name, labels) => {
+const receiveAutocompleteResponse = (autocomplete_name, labels, request_time) => {
     return {
         type: RECEIVE_AUTOCOMPLETE_RESPONSE,
         labels,
-        autocomplete: autocomplete_name
+        autocomplete: autocomplete_name,
+        request_time
     }
 }
 
@@ -20,11 +21,13 @@ const receiveAutocompleteError= (autocomplete_name, error_message) => {
 }
 
 const sendRequest = (url, params, autocomplete, successCallback, headers = {}) => dispatch => {
+    const startTime = new Date().getTime();
     return axios.get(url, {params, headers})
         .then(response => {
             dispatch(receiveAutocompleteResponse(
                 autocomplete,
-                successCallback(response)
+                successCallback(response),
+                new Date().getTime() - startTime
             ));
         })
         .catch(error => {
