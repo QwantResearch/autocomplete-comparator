@@ -19,18 +19,21 @@ class AutocompleteComparator extends Component {
                     <Autocomplete
                         title="Bragi"
                         labels={this.props.bragi.labels}
+                        request_time={this.props.bragi.request_time}
                         error={this.props.bragi.error} />
                 </div>
                 <div className="col-md-3">
                     <Autocomplete
                         title="Kraken"
                         labels={this.props.kraken.labels}
+                        request_time={this.props.kraken.request_time}
                         error={this.props.kraken.error} />
                 </div>
                 <div className="col-md-3">
                     <Autocomplete
                         title="Bano"
                         labels={this.props.bano.labels}
+                        request_time={this.props.bano.request_time}
                         error={this.props.bano.error} />
                 </div>
             </div>
