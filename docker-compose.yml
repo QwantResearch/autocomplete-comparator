@@ -1,0 +1,9 @@
+version: '2'
+
+services:
+  autocomplete-comparator:
+    image: par-vm221.srv.canaltp.fr:5000/autocomplete-comparator
+    container_name: autocomplete-comparator
+    restart: always
+    ports:
+        - "9000:9000"
