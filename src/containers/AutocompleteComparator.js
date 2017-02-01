@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import * as Actions from '../actions';
 import Autocomplete from '../components/Autocomplete'
 import GoogleAutocomplete from '../components/GoogleAutocomplete'
+import KrakenAutocomplete from '../components/KrakenAutocomplete'
 import Search from '../components/Search'
 
 class AutocompleteComparator extends Component {
@@ -12,7 +13,10 @@ class AutocompleteComparator extends Component {
         <div className="container">
             <div className="row">
                 <div className="col-md-12">
-                    <Search onTermChange={this.props.actions.requestAutocompletes} />
+                    <Search
+                        term={this.props.term}
+                        onTermChange={this.props.actions.requestAutocompletes}
+                        changeSearchTerm={this.props.actions.changeSearchTerm} />
                 </div>
             </div>
             <div className="row">
@@ -24,11 +28,16 @@ class AutocompleteComparator extends Component {
                         error={this.props.bragi.error} />
                 </div>
                 <div className="col-md-3">
-                    <Autocomplete
-                        title="Kraken"
-                        labels={this.props.kraken.labels}
-                        request_time={this.props.kraken.request_time}
-                        error={this.props.kraken.error} />
+                    <KrakenAutocomplete
+                        inputs={this.props.kraken.inputs}
+                        handleInputChange={this.props.actions.handleInputChange.bind(null, "kraken")}
+                        onTermChange={this.props.actions.requestAutocompletes.bind(null, this.props.term)} >
+                        <Autocomplete
+                            title="Kraken"
+                            labels={this.props.kraken.labels}
+                            request_time={this.props.kraken.request_time}
+                            error={this.props.kraken.error} />
+                    </KrakenAutocomplete>
                 </div>
                 <div className="col-md-3">
                     <Autocomplete

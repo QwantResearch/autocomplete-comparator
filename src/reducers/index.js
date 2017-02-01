@@ -1,25 +1,8 @@
-import {
-    RECEIVE_AUTOCOMPLETE_RESPONSE,
-    RECEIVE_AUTOCOMPLETE_ERROR
-} from '../actions';
+import * as types from  '../constants/ActionTypes'
 
-const autocompletes = [
-    'bragi', 'kraken', 'bano', 'google'
-];
-
-const initialState = autocompletes.reduce((state, autocomplete) => {
-    state[autocomplete] = {
-        labels: [],
-        error: false,
-        request_time: 0,
-    };
-
-    return state;
-}, {});
-
-export default function(state = initialState, action) {
+export default function(state = {}, action) {
     switch (action.type) {
-        case RECEIVE_AUTOCOMPLETE_RESPONSE:
+        case types.RECEIVE_AUTOCOMPLETE_RESPONSE:
             return {
                 ...state,
                 [action.autocomplete]: {
@@ -29,7 +12,7 @@ export default function(state = initialState, action) {
                     error:false,
                 }
             };
-        case RECEIVE_AUTOCOMPLETE_ERROR:
+        case types.RECEIVE_AUTOCOMPLETE_ERROR:
             return {
                 ...state,
                 [action.autocomplete]: {
@@ -38,6 +21,23 @@ export default function(state = initialState, action) {
                     labels: [],
                     request_time: 0
                 }
+            };
+        case types.CHANGE_INPUT:
+            return {
+                ...state,
+                [action.autocomplete]: {
+                    ...state[action.autocomplete],
+                    inputs: {
+                        ...state[action.autocomplete].inputs,
+                        [action.name]: action.value
+
+                    }
+                }
+            };
+        case types.CHANGE_SEARCH_TERM:
+            return {
+                ...state,
+                term: action.term
             };
         default:
         return state;
