@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as Actions from '../actions';
 import Autocomplete from '../components/Autocomplete'
+import GoogleAutocomplete from '../components/GoogleAutocomplete'
 import Search from '../components/Search'
 
 class AutocompleteComparator extends Component {
@@ -35,6 +36,15 @@ class AutocompleteComparator extends Component {
                         labels={this.props.bano.labels}
                         request_time={this.props.bano.request_time}
                         error={this.props.bano.error} />
+                </div>
+                <div className="col-md-3">
+                    <GoogleAutocomplete>
+                        <Autocomplete
+                            title="Google Places"
+                            labels={this.props.google.labels}
+                            request_time={this.props.google.request_time}
+                            error={this.props.google.error} />
+                    </GoogleAutocomplete>
                 </div>
             </div>
         </div>

@@ -2,6 +2,13 @@ export const RECEIVE_AUTOCOMPLETE_RESPONSE = 'RECEIVE_AUTOCOMPLETE_RESPONSE';
 export const RECEIVE_AUTOCOMPLETE_ERROR = 'RECEIVE_AUTOCOMPLETE_ERROR';
 
 import axios from 'axios';
+import loadGoogleMapsAPI from 'load-google-maps-api';
+
+const mapsapi = loadGoogleMapsAPI({
+    key: process.env.REACT_APP_GOOGLE_KEY,
+    libraries: ['places'],
+    language: 'fr'
+});
 
 const receiveAutocompleteResponse = (autocomplete_name, labels, request_time) => {
     return {
@@ -35,6 +42,37 @@ const sendRequest = (url, params, autocomplete, successCallback, headers = {}) =
         });
 };
 
+const sendRequestGooglePlaces = (term, autocomplete, successCallback) => dispatch => {
+    mapsapi
+        .then(googleMaps => {
+            return new window.google.maps.places.AutocompleteService();
+        }).then(autocompleteService => {
+            const startTime = new Date().getTime();
+            autocompleteService.getPlacePredictions(
+                { input: term},
+                (predictions, status) => {
+                    if (status === window.google.maps.places.PlacesServiceStatus.OK) {
+                        dispatch(receiveAutocompleteResponse(
+                            'google',
+                            predictions.map(prediction => prediction.description),
+                            new Date().getTime() - startTime
+                        ));
+                    } else if (status === window.google.maps.places.PlacesServiceStatus.ZERO_RESULTS) {
+                        dispatch(receiveAutocompleteResponse(
+                            'google',
+                            [],
+                            0
+                        ));
+                    } else {
+                        dispatch(receiveAutocompleteError('google', status));
+                    }
+                }
+            )
+        }).catch((err) => {
+            console.error(err);
+        });
+};
+
 export const requestAutocompletes = (term = null) => {
     const thunk = dispatch => Promise.all([
         dispatch(sendRequest(
@@ -56,10 +94,11 @@ export const requestAutocompletes = (term = null) => {
         )),
         dispatch(sendRequest(
             'http://api-adresse.data.gouv.fr/search',
-            { q: term},
+            { q: term },
             'bano',
             response => response.data.features.map(feature => feature.properties.label)
         )),
+        dispatch(sendRequestGooglePlaces(term, 'google')),
     ]);
 
     thunk.meta = {
