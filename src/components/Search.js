@@ -12,7 +12,7 @@ export default class Search extends React.Component {
             <input
                 id="search"
                 autoComplete="off"
-                placeholder="Search"
+                placeholder="Search for"
                 className="form-control form-control-lg"
                 type="text"
                 onChange={this.onInputChange.bind(this)} />

@@ -3,20 +3,19 @@ import React from 'react';
 export default function Autocomplete({title, error, labels, request_time}) {
     let requestTime = null;
     if (labels.length > 0) {
-        requestTime = <span className="badge badge-info">{request_time} ms</span>;
+        requestTime = <div className="badge badge-info rounded-0">{request_time} ms</div>;
     }
 
     return (
-        <div>
-            <div>
-                <h5>{title} {requestTime} </h5>
-                { error &&
-                <div className="alert alert-danger" role="alert">
+        <div className="card">
+            <div className="card-header">{title}</div>
+            {requestTime}
+            { error &&
+                <div className="card-block card-inverse card-danger">
                     {error}
                 </div>}
-            </div>
             {!error &&
-                <ul>{labels.map((label, i) => <li key={i}>{label}</li>)}</ul>}
+                    <ul className="list-group list-group-flush">{labels.map((label, i) => <li className="list-group-item" key={i}>{label}</li>)}</ul>}
         </div>
     )
 }
