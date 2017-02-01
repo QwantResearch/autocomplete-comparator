@@ -4,7 +4,7 @@ import {
 } from '../actions';
 
 const autocompletes = [
-    'bragi', 'kraken', 'bano'
+    'bragi', 'kraken', 'bano', 'google'
 ];
 
 const initialState = autocompletes.reduce((state, autocomplete) => {
@@ -26,6 +26,7 @@ export default function(state = initialState, action) {
                     ...state[action.autocomplete],
                     labels: action.labels,
                     request_time: action.request_time,
+                    error:false,
                 }
             };
         case RECEIVE_AUTOCOMPLETE_ERROR:
@@ -33,7 +34,9 @@ export default function(state = initialState, action) {
                 ...state,
                 [action.autocomplete]: {
                     ...state[action.autocomplete],
-                    error: action.error
+                    error: action.error,
+                    labels: [],
+                    request_time: 0
                 }
             };
         default:
