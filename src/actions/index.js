@@ -1,6 +1,4 @@
-export const RECEIVE_AUTOCOMPLETE_RESPONSE = 'RECEIVE_AUTOCOMPLETE_RESPONSE';
-export const RECEIVE_AUTOCOMPLETE_ERROR = 'RECEIVE_AUTOCOMPLETE_ERROR';
-
+import * as types from  '../constants/ActionTypes'
 import axios from 'axios';
 import loadGoogleMapsAPI from 'load-google-maps-api';
 
@@ -12,7 +10,7 @@ const mapsapi = loadGoogleMapsAPI({
 
 const receiveAutocompleteResponse = (autocomplete_name, labels, request_time) => {
     return {
-        type: RECEIVE_AUTOCOMPLETE_RESPONSE,
+        type: types.RECEIVE_AUTOCOMPLETE_RESPONSE,
         labels,
         autocomplete: autocomplete_name,
         request_time
@@ -21,13 +19,14 @@ const receiveAutocompleteResponse = (autocomplete_name, labels, request_time) =>
 
 const receiveAutocompleteError= (autocomplete_name, error_message) => {
     return {
-        type: RECEIVE_AUTOCOMPLETE_ERROR,
+        type: types.RECEIVE_AUTOCOMPLETE_ERROR,
         error: error_message,
         autocomplete: autocomplete_name
     }
 }
 
-const sendRequest = (url, params, autocomplete, successCallback, headers = {}) => dispatch => {
+const sendRequest = (url, params, autocomplete, 
+    successCallback, errorCallback = null, headers = {}) => dispatch => {
     const startTime = new Date().getTime();
     return axios.get(url, {params, headers})
         .then(response => {
@@ -38,7 +37,14 @@ const sendRequest = (url, params, autocomplete, successCallback, headers = {}) =
             ));
         })
         .catch(error => {
-            dispatch(receiveAutocompleteError(autocomplete, error.message));
+            if (error.response && typeof errorCallback === 'function') {
+                dispatch(receiveAutocompleteError(
+                    autocomplete,
+                    errorCallback(error.response.data)
+                ));
+            } else {
+                dispatch(receiveAutocompleteError(autocomplete, error.message));
+            }
         });
 };
 
@@ -73,33 +79,48 @@ const sendRequestGooglePlaces = (term, autocomplete, successCallback) => dispatc
         });
 };
 
+export const handleInputChange = (autocomplete_name, name, value) => {
+    return {
+        type: types.CHANGE_INPUT,
+        autocomplete: autocomplete_name,
+        name,
+        value
+    }
+}
+
 export const requestAutocompletes = (term = null) => {
-    const thunk = dispatch => Promise.all([
-        dispatch(sendRequest(
-            `${process.env.REACT_APP_BRAGI_HOST}/autocomplete`,
-            { q: term},
-            'bragi',
-            response => response.data.features.map(feature => feature.properties.geocoding.label)
-        )),
-        dispatch(sendRequest(
-            process.env.REACT_APP_NAVITIA_HOST,
-            { q: term},
-            'kraken',
-            response => {
-                return response.data.hasOwnProperty("places")
-                    ? response.data.places.map(place => place.name)
-                    : [];
-            },
-            { 'Authorization': process.env.REACT_APP_NAVITA_TOKEN }
-        )),
-        dispatch(sendRequest(
-            'http://api-adresse.data.gouv.fr/search',
-            { q: term },
-            'bano',
-            response => response.data.features.map(feature => feature.properties.label)
-        )),
-        dispatch(sendRequestGooglePlaces(term, 'google')),
-    ]);
+    const thunk = (dispatch, getState) => {
+        if (getState().term === '') {
+            return;
+        }
+        Promise.all([
+            dispatch(sendRequest(
+                `${process.env.REACT_APP_BRAGI_HOST}/autocomplete`,
+                { q: term},
+                'bragi',
+                response => response.data.features.map(feature => feature.properties.geocoding.label)
+            )),
+            dispatch(sendRequest(
+                `${getState().kraken.inputs.host}/v1/coverage/${getState().kraken.inputs.coverage}/places`,
+                { q: term},
+                'kraken',
+                response => {
+                    return response.data.hasOwnProperty("places")
+                        ? response.data.places.map(place => place.name)
+                        : [];
+                },
+                err => err.message,
+                { 'Authorization': getState().kraken.inputs.token }
+            )),
+            dispatch(sendRequest(
+                'http://api-adresse.data.gouv.fr/search',
+                { q: term },
+                'bano',
+                response => response.data.features.map(feature => feature.properties.label)
+            )),
+            dispatch(sendRequestGooglePlaces(term, 'google')),
+        ]);
+    }
 
     thunk.meta = {
         debounce: {
@@ -109,4 +130,11 @@ export const requestAutocompletes = (term = null) => {
     };
 
     return thunk;
+}
+
+export const changeSearchTerm = (term) => {
+    return {
+        type: types.CHANGE_SEARCH_TERM,
+        term
+    }
 }
