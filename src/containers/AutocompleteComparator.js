@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as Actions from '../actions';
-import Autocomplete from '../components/Autocomplete'
+import Autocomplete from '../components/autocomplete/Autocomplete'
 import GoogleAutocomplete from '../components/GoogleAutocomplete'
 import KrakenAutocomplete from '../components/KrakenAutocomplete'
 import Search from '../components/Search'
@@ -23,7 +23,7 @@ class AutocompleteComparator extends Component {
                 <div className="col-md-3">
                     <Autocomplete
                         title="Bragi"
-                        labels={this.props.bragi.labels}
+                        items={this.props.bragi.items}
                         request_time={this.props.bragi.request_time}
                         error={this.props.bragi.error} />
                 </div>
@@ -34,7 +34,7 @@ class AutocompleteComparator extends Component {
                         onTermChange={this.props.actions.requestAutocompletes.bind(null, this.props.term)} >
                         <Autocomplete
                             title="Kraken"
-                            labels={this.props.kraken.labels}
+                            items={this.props.kraken.items}
                             request_time={this.props.kraken.request_time}
                             error={this.props.kraken.error} />
                     </KrakenAutocomplete>
@@ -42,7 +42,7 @@ class AutocompleteComparator extends Component {
                 <div className="col-md-3">
                     <Autocomplete
                         title="Bano"
-                        labels={this.props.bano.labels}
+                        items={this.props.bano.items}
                         request_time={this.props.bano.request_time}
                         error={this.props.bano.error} />
                 </div>
@@ -50,7 +50,7 @@ class AutocompleteComparator extends Component {
                     <GoogleAutocomplete>
                         <Autocomplete
                             title="Google Places"
-                            labels={this.props.google.labels}
+                            items={this.props.google.items}
                             request_time={this.props.google.request_time}
                             error={this.props.google.error} />
                     </GoogleAutocomplete>

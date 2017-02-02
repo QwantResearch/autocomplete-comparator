@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default class Search extends React.Component {
+export default class Search extends React.PureComponent {
     onInputChange(event) {
         this.props.changeSearchTerm(event.target.value);
         if (event.target.value !== "") {

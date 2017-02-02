@@ -3,7 +3,7 @@ const autocompletes = [
 ];
 
 const autocompleteInitialState = {
-    labels: [],
+    items: [],
     error: false,
     request_time: 0,
 };

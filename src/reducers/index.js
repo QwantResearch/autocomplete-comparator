@@ -7,7 +7,7 @@ export default function(state = {}, action) {
                 ...state,
                 [action.autocomplete]: {
                     ...state[action.autocomplete],
-                    labels: action.labels,
+                    items: action.items,
                     request_time: action.request_time,
                     error:false,
                 }
@@ -18,7 +18,7 @@ export default function(state = {}, action) {
                 [action.autocomplete]: {
                     ...state[action.autocomplete],
                     error: action.error,
-                    labels: [],
+                    items: [],
                     request_time: 0
                 }
             };
