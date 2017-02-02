@@ -1,6 +1,12 @@
 import reducer from './index';
 
 describe('reducer', () => {
+    let items;
+
+    beforeEach(function() {
+        items = [{label: 'Bob'},  {label: 'Bobette'}];
+    });
+
     it('should return the initial state', () => {
         expect(
             reducer(undefined, {})
@@ -11,7 +17,7 @@ describe('reducer', () => {
         const initial_state = {
             term: '',
             autocomplete_name:{
-                labels:[],
+                items: [],
                 error: false,
                 request_time: 0,
                 inputs: {}
@@ -20,7 +26,7 @@ describe('reducer', () => {
 
         const action = {
             type:'RECEIVE_AUTOCOMPLETE_RESPONSE',
-            labels:['Bob', 'Bobette'],
+            items,
             autocomplete:'autocomplete_name',
             request_time: 10,
             inputs: {}
@@ -31,7 +37,7 @@ describe('reducer', () => {
         ).toEqual({
             term: '',
             autocomplete_name:{
-                labels: ['Bob', 'Bobette'],
+                items,
                 error: false,
                 request_time: 10,
                 inputs: {}
@@ -43,7 +49,7 @@ describe('reducer', () => {
         const initial_state = {
             term: '',
             autocomplete_name:{
-                labels:[],
+                items:[],
                 error: true,
                 request_time: 0,
                 inputs: {}
@@ -52,7 +58,7 @@ describe('reducer', () => {
 
         const action = {
             type:'RECEIVE_AUTOCOMPLETE_RESPONSE',
-            labels:['Bob', 'Bobette'],
+            items,
             autocomplete:'autocomplete_name',
             request_time: 10
         };
@@ -62,7 +68,7 @@ describe('reducer', () => {
         ).toEqual({
             term: '',
             autocomplete_name:{
-                labels: ['Bob', 'Bobette'],
+                items,
                 error: false,
                 request_time: 10,
                 inputs: {}
@@ -74,7 +80,7 @@ describe('reducer', () => {
         const initial_state = {
             term: '',
             autocomplete_name:{
-                labels:['Bob', 'Bobette'],
+                items,
                 error: false,
                 request_time: 10,
                 inputs: {}
@@ -92,7 +98,7 @@ describe('reducer', () => {
         ).toEqual({
             term: '',
             autocomplete_name:{
-                labels: [],
+                items: [],
                 error: 'Network error',
                 request_time: 0,
                 inputs: {}
@@ -104,7 +110,7 @@ describe('reducer', () => {
         const initial_state = {
             term: '',
             autocomplete_name:{
-                labels:[],
+                items:[],
                 error: false,
                 request_time: 0,
                 inputs: {
@@ -128,7 +134,7 @@ describe('reducer', () => {
         ).toEqual({
             term: '',
             autocomplete_name:{
-                labels: [],
+                items: [],
                 error: false,
                 request_time: 0,
                 inputs: {
@@ -150,7 +156,7 @@ describe('reducer', () => {
         ).toEqual({
             term: '',
             autocomplete_name:{
-                labels: [],
+                items: [],
                 error: false,
                 request_time: 0,
                 inputs: {
@@ -165,7 +171,7 @@ describe('reducer', () => {
         const initial_state = {
             term: "",
             autocomplete_name:{
-                labels: [],
+                items: [],
                 error: false,
                 request_time: 0,
                 inputs: {}
@@ -184,7 +190,7 @@ describe('reducer', () => {
         ).toEqual({
             term: 'bob',
             autocomplete_name:{
-                labels: [],
+                items: [],
                 error: false,
                 request_time: 0,
                 inputs: {}

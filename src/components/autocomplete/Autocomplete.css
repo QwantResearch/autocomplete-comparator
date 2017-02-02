@@ -1,0 +1,18 @@
+.pic-address {
+  background-image: url("./pic-address.png");
+}
+.pic-city {
+  background-image: url("./pic-city.png");
+}
+.pic-poi {
+  background-image: url("./pic-poi.png");
+}
+.pic-stop_area {
+  background-image: url("./pic-stop_area.png");
+}
+
+.list-group-item.type-logo {
+    padding-left: 2.2rem;
+    background-repeat: no-repeat;
+    background-position: 0.5rem
+}

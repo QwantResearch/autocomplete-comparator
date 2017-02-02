@@ -8,10 +8,10 @@ const mapsapi = loadGoogleMapsAPI({
     language: 'fr'
 });
 
-const receiveAutocompleteResponse = (autocomplete_name, labels, request_time) => {
+const receiveAutocompleteResponse = (autocomplete_name, items, request_time) => {
     return {
         type: types.RECEIVE_AUTOCOMPLETE_RESPONSE,
-        labels,
+        items,
         autocomplete: autocomplete_name,
         request_time
     }
@@ -60,7 +60,12 @@ const sendRequestGooglePlaces = (term, autocomplete, successCallback) => dispatc
                     if (status === window.google.maps.places.PlacesServiceStatus.OK) {
                         dispatch(receiveAutocompleteResponse(
                             'google',
-                            predictions.map(prediction => prediction.description),
+                            predictions.map(prediction => {
+                                return {
+                                    label: prediction.description,
+                                    type: null
+                                };
+                            }),
                             new Date().getTime() - startTime
                         ));
                     } else if (status === window.google.maps.places.PlacesServiceStatus.ZERO_RESULTS) {
@@ -98,16 +103,38 @@ export const requestAutocompletes = (term = null) => {
                 `${process.env.REACT_APP_BRAGI_HOST}/autocomplete`,
                 { q: term},
                 'bragi',
-                response => response.data.features.map(feature => feature.properties.geocoding.label)
+                response => response.data.features.map(feature => {
+                    let type;
+                    const geocoding = feature.properties.geocoding;
+                    if (geocoding.type === 'public_transport:stop_area') {
+                        type = 'stop_area';
+                    } else if (geocoding.type === 'house' || geocoding.type === 'street') {
+                        type = 'address';
+                    } else {
+                        type = geocoding.type;
+                    }
+
+                    return {
+                        label: feature.properties.geocoding.label,
+                        type
+                    };
+                })
             )),
             dispatch(sendRequest(
                 `${getState().kraken.inputs.host}/v1/coverage/${getState().kraken.inputs.coverage}/places`,
                 { q: term},
                 'kraken',
                 response => {
-                    return response.data.hasOwnProperty("places")
-                        ? response.data.places.map(place => place.name)
-                        : [];
+                    if (response.data.hasOwnProperty("places")) {
+                        return response.data.places.map(place => {
+                            return {
+                                label: place.name,
+                                type: null
+                            };
+                        });
+                    }
+
+                    return [];
                 },
                 err => err.message,
                 { 'Authorization': getState().kraken.inputs.token }
@@ -116,7 +143,12 @@ export const requestAutocompletes = (term = null) => {
                 'http://api-adresse.data.gouv.fr/search',
                 { q: term },
                 'bano',
-                response => response.data.features.map(feature => feature.properties.label)
+                response => response.data.features.map(feature => {
+                    return {
+                        label: feature.properties.label,
+                        type: null
+                    };
+                })
             )),
             dispatch(sendRequestGooglePlaces(term, 'google')),
         ]);
