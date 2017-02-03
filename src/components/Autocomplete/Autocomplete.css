@@ -1,3 +1,7 @@
+.autocomplete .row+.row {
+    margin-top: 1rem;
+}
+
 .pic-address {
   background-image: url("./pic-address.png");
 }

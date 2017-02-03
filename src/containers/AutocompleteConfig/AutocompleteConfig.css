@@ -1,0 +1,10 @@
+.sidebar {
+    position: fixed !important;
+    top: 51px;
+    left: 0;
+    bottom: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    border-right: 1px solid #eee;
+    padding-top: 1rem;
+}

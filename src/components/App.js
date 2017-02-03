@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import AutocompleteConfig from '../containers/AutocompleteConfig'
 import AutocompleteComparator from '../containers/AutocompleteComparator'
 import Navbar from '../components/Navbar'
 
@@ -7,7 +8,12 @@ class App extends Component {
     return (
       <div>
         <Navbar />
-        <AutocompleteComparator />
+        <div className="container-fluid">
+          <div className="row">
+            <AutocompleteConfig />
+            <AutocompleteComparator />
+          </div>
+        </div>
       </div>
     );
   }
