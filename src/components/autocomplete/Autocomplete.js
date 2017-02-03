@@ -16,7 +16,9 @@ export default class Autocomplete extends React.PureComponent {
                 <div className="card-header">{title}</div>
                 {requestTime}
                 { error &&
-                    <div className="card-block card-inverse card-danger">
+                    <div
+                        className="card-block card-inverse card-danger"
+                        style={{wordWrap: 'break-word'}}>
                         {error}
                     </div>}
                 {!error &&
