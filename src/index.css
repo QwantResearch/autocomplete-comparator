@@ -1,7 +1,3 @@
 body {
-  padding-top: 5rem;
-}
-
-.container .row+.row {
-    margin-top: 1rem;
+  padding-top: 50px;
 }

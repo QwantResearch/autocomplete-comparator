@@ -19,10 +19,14 @@ const initialState = autocompletes.reduce((state, autocomplete) => {
 
 initialState.term = "";
 
+initialState.bragi.inputs = {
+    host: '',
+};
+
 initialState.kraken.inputs = {
-    host: 'https://api.navitia.io',
-    coverage: 'fr-idf',
-    token: ''
+    navitia_host: 'https://api.navitia.io',
+    navitia_coverage: 'fr-idf',
+    navitia_token: ''
 };
 
 export default initialState;

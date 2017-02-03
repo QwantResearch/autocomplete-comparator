@@ -100,7 +100,7 @@ export const requestAutocompletes = (term = null) => {
         }
         Promise.all([
             dispatch(sendRequest(
-                `${process.env.REACT_APP_BRAGI_HOST}/autocomplete`,
+                `${getState().bragi.inputs.bragi_host}/autocomplete`,
                 { q: term},
                 'bragi',
                 response => response.data.features.map(feature => {
@@ -121,7 +121,7 @@ export const requestAutocompletes = (term = null) => {
                 })
             )),
             dispatch(sendRequest(
-                `${getState().kraken.inputs.host}/v1/coverage/${getState().kraken.inputs.coverage}/places`,
+                `${getState().kraken.inputs.navitia_host}/v1/coverage/${getState().kraken.inputs.navitia_coverage}/places`,
                 { q: term},
                 'kraken',
                 response => {
@@ -137,7 +137,7 @@ export const requestAutocompletes = (term = null) => {
                     return [];
                 },
                 err => err.message,
-                { 'Authorization': getState().kraken.inputs.token }
+                { 'Authorization': getState().kraken.inputs.navitia_token }
             )),
             dispatch(sendRequest(
                 'http://api-adresse.data.gouv.fr/search',
