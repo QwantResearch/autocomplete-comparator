@@ -1,13 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './components/App';
-import './index.css';
 import { Provider } from 'react-redux';
 import configureStore from './store/configureStore';
-import initialState from './store/initialState';
+import { loadState, saveState } from './localStorage';
+import App from './components/App';
 import 'bootstrap/dist/css/bootstrap.min.css'
+import './index.css';
 
-const store = configureStore(initialState);
+const persistedState = loadState();
+const store = configureStore(persistedState);
+store.subscribe(() => saveState(store.getState()));
 
 ReactDOM.render(
   <Provider store={store}>

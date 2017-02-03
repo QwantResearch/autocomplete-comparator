@@ -8,6 +8,10 @@ export default class Search extends React.PureComponent {
         }
     }
 
+    componentDidMount() {
+        this.textInput.focus();
+    }
+
     render() {
         return (
             <input
@@ -17,6 +21,7 @@ export default class Search extends React.PureComponent {
                 className="form-control form-control-lg"
                 type="text"
                 value={this.props.term}
+                ref={input => this.textInput = input}
                 onChange={this.onInputChange.bind(this)} />
         )
     }
