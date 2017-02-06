@@ -4,7 +4,7 @@ const autocompletes = [
 
 const autocompleteInitialState = {
     items: [],
-    error: false,
+    error: null,
     request_time: 0,
 };
 
