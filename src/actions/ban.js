@@ -1,10 +1,19 @@
 import sendRequest from './autocomplete';
 
+const mapping_type = {
+    municipality: 'city',
+    housenumber: 'address',
+    street: 'address',
+    locality: 'poi',
+};
+
 const successCallback = (response) => {
     return response.features.map(feature => {
+        const properties = feature.properties;
+
         return {
-            label: feature.properties.label,
-            type: null
+            label: properties.label,
+            type: mapping_type[properties.type]
         };
     });
 }
