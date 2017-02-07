@@ -9,7 +9,7 @@ export default function(state = {}, action) {
                     ...state[action.autocomplete],
                     items: action.items,
                     request_time: action.request_time,
-                    error:false,
+                    error: null,
                 }
             };
         case types.RECEIVE_AUTOCOMPLETE_ERROR:

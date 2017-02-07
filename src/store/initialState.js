@@ -1,10 +1,10 @@
 const autocompletes = [
-    'bragi', 'kraken', 'bano', 'google'
+    'bragi', 'kraken', 'ban', 'google'
 ];
 
 const autocompleteInitialState = {
     items: [],
-    error: false,
+    error: null,
     request_time: 0,
 };
 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import AutocompleteConfig from '../containers/AutocompleteConfig'
+import AutocompletesConfig from '../containers/AutocompletesConfig'
 import AutocompleteComparator from '../containers/AutocompleteComparator'
 import Navbar from '../components/Navbar'
 
@@ -10,7 +10,7 @@ class App extends Component {
         <Navbar />
         <div className="container-fluid">
           <div className="row">
-            <AutocompleteConfig />
+            <AutocompletesConfig />
             <AutocompleteComparator />
           </div>
         </div>

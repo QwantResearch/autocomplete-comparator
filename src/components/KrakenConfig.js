@@ -1,7 +1,7 @@
 import React from 'react';
-import Config from './Config';
+import AutocompleteInput from './AutocompleteInput';
 
-export default class KrakenConfig extends Config {
+export default class KrakenConfig extends AutocompleteInput {
     render() {
         return (
             <div>
