@@ -26,7 +26,7 @@ class AutocompleteComparator extends Component {
                         <Autocomplete title="Kraken" {...this.props.kraken} />
                     </div>
                     <div className="col-md-3">
-                        <Autocomplete title="Bano" {...this.props.bano} />
+                        <Autocomplete title="adresse.data.gouv.fr" {...this.props.ban} />
                     </div>
                     <div className="col-md-3">
                         <Autocomplete title="Google Places" {...this.props.google}>

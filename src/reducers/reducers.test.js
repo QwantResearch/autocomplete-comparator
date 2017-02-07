@@ -18,7 +18,7 @@ describe('reducer', () => {
             term: '',
             autocomplete_name:{
                 items: [],
-                error: false,
+                error: null,
                 request_time: 0,
                 inputs: {}
             }
@@ -38,7 +38,7 @@ describe('reducer', () => {
             term: '',
             autocomplete_name:{
                 items,
-                error: false,
+                error: null,
                 request_time: 10,
                 inputs: {}
             }
@@ -50,7 +50,7 @@ describe('reducer', () => {
             term: '',
             autocomplete_name:{
                 items:[],
-                error: true,
+                error: 'an error',
                 request_time: 0,
                 inputs: {}
             }
@@ -69,7 +69,7 @@ describe('reducer', () => {
             term: '',
             autocomplete_name:{
                 items,
-                error: false,
+                error: null,
                 request_time: 10,
                 inputs: {}
             }
@@ -81,7 +81,7 @@ describe('reducer', () => {
             term: '',
             autocomplete_name:{
                 items,
-                error: false,
+                error: null,
                 request_time: 10,
                 inputs: {}
             }
@@ -111,7 +111,7 @@ describe('reducer', () => {
             term: '',
             autocomplete_name:{
                 items:[],
-                error: false,
+                error: null,
                 request_time: 0,
                 inputs: {
                     host: "",
@@ -135,7 +135,7 @@ describe('reducer', () => {
             term: '',
             autocomplete_name:{
                 items: [],
-                error: false,
+                error: null,
                 request_time: 0,
                 inputs: {
                     host: "bob",
@@ -157,7 +157,7 @@ describe('reducer', () => {
             term: '',
             autocomplete_name:{
                 items: [],
-                error: false,
+                error: null,
                 request_time: 0,
                 inputs: {
                     host: "bob",
@@ -172,7 +172,7 @@ describe('reducer', () => {
             term: "",
             autocomplete_name:{
                 items: [],
-                error: false,
+                error: null,
                 request_time: 0,
                 inputs: {}
             }
@@ -191,7 +191,7 @@ describe('reducer', () => {
             term: 'bob',
             autocomplete_name:{
                 items: [],
-                error: false,
+                error: null,
                 request_time: 0,
                 inputs: {}
             }

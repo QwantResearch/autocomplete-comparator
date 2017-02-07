@@ -1,7 +1,7 @@
 import * as types from  '../constants/ActionTypes'
 import requestBragi from './bragi';
 import requestKraken from './kraken';
-import requestBano from './bano';
+import requestBan from './ban';
 import requestGooglePlaces from './google';
 
 export const handleInputChange = (autocomplete_name, name, value) => {
@@ -28,7 +28,7 @@ export const requestAutocompletes = (term = null) => {
         Promise.all([
             dispatch(requestBragi(term)),
             dispatch(requestKraken(term)),
-            dispatch(requestBano(term)),
+            dispatch(requestBan(term)),
             dispatch(requestGooglePlaces(term)),
         ]);
     }

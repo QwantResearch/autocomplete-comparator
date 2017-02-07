@@ -11,12 +11,12 @@ const successCallback = (response) => {
 
 const errorCallback = (error) => error;
 
-export default function requestBano(term) {
+export default function requestBan(term) {
     return (dispatch) => {
         return dispatch(sendRequest(
             'http://api-adresse.data.gouv.fr/search',
             { q: term },
-            'bano',
+            'ban',
             successCallback,
             errorCallback,
         ));

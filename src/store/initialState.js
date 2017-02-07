@@ -1,5 +1,5 @@
 const autocompletes = [
-    'bragi', 'kraken', 'bano', 'google'
+    'bragi', 'kraken', 'ban', 'google'
 ];
 
 const autocompleteInitialState = {
