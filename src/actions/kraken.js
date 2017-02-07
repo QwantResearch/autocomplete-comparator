@@ -5,7 +5,7 @@ const successCallback = (response) => {
         return response.places.map(place => {
             return {
                 label: place.name,
-                type: null
+                type: place.embedded_type === 'administrative_region' ? 'city' : place.embedded_type
             };
         });
     }

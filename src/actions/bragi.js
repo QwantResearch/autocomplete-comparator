@@ -1,20 +1,25 @@
 import sendRequest from './autocomplete';
 
+const getType = (value) => {
+    let type;
+    if (value === 'public_transport:stop_area') {
+        type = 'stop_area';
+    } else if (value === 'house' || value === 'street') {
+        type = 'address';
+    } else {
+        type = value;
+    }
+
+    return type;
+}
+
 const successCallback = (response) => {
     return response.features.map(feature => {
-        let type;
         const geocoding = feature.properties.geocoding;
-        if (geocoding.type === 'public_transport:stop_area') {
-            type = 'stop_area';
-        } else if (geocoding.type === 'house' || geocoding.type === 'street') {
-            type = 'address';
-        } else {
-            type = geocoding.type;
-        }
 
         return {
-            label: feature.properties.geocoding.label,
-            type
+            label: geocoding.label,
+            type: getType(geocoding.type),
         };
     });
 }

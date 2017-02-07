@@ -7,6 +7,29 @@ const mapsapi = loadGoogleMapsAPI({
     language: 'fr'
 });
 
+const getType = (value) => {
+    let type;
+    switch (value) {
+        case 'route':
+            type = 'address';
+            break;
+        case 'street_address':
+            type = 'address';
+            break;
+        case 'transit_station':
+            type = 'address';
+            break;
+        case 'locality':
+            type = 'city';
+            break;
+        default:
+            type = 'poi';
+            break;
+    }
+
+    return type;
+}
+
 export default function requestGooglePlaces(term) {
     return dispatch => {
         mapsapi
@@ -23,7 +46,7 @@ export default function requestGooglePlaces(term) {
                                 predictions.map(prediction => {
                                     return {
                                         label: prediction.description,
-                                        type: null
+                                        type: getType(prediction.types[0])
                                     };
                                 }),
                                 new Date().getTime() - startTime
