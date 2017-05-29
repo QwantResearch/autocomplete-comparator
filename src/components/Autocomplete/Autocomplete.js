@@ -1,6 +1,7 @@
 import React from 'react';
 import './Autocomplete.css';
 import classNames from 'classnames';
+import PropTypes from 'prop-types';
 
 class Autocomplete extends React.PureComponent {
     render() {
@@ -41,13 +42,13 @@ class Autocomplete extends React.PureComponent {
 }
 
 Autocomplete.propTypes = {
-    children: React.PropTypes.element,
-    title: React.PropTypes.string.isRequired,
-    error: React.PropTypes.string,
-    request_time: React.PropTypes.number.isRequired,
-    items: React.PropTypes.arrayOf(React.PropTypes.shape({
-        label: React.PropTypes.string.isRequired,
-        type: React.PropTypes.string,
+    children: PropTypes.element,
+    title: PropTypes.string.isRequired,
+    error: PropTypes.string,
+    request_time: PropTypes.number.isRequired,
+    items: PropTypes.arrayOf(PropTypes.shape({
+        label: PropTypes.string.isRequired,
+        type: PropTypes.string,
     })).isRequired,
 }
 
