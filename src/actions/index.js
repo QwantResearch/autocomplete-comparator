@@ -3,6 +3,7 @@ import requestBragi from './bragi';
 import requestPhoton from './photon';
 import requestPelias from './pelias';
 import requestKraken from './kraken';
+import requestNavitia from './navitia';
 import requestBan from './ban';
 import requestGooglePlaces from './google';
 
@@ -30,6 +31,7 @@ export const requestAutocompletes = (term = null) => {
         Promise.all([
             dispatch(requestBragi(term)),
             dispatch(requestPelias(term)),
+            dispatch(requestNavitia(term)),
             dispatch(requestPhoton(term)),
             dispatch(requestKraken(term)),
             dispatch(requestBan(term)),
