@@ -2,7 +2,7 @@ import sendRequest from './autocomplete';
 
 const getType = (value) => {
     let type;
-    if (value === 'city' || value === 'administrative') {
+    if (value === 'region' || value === 'locality' || value === 'county') {
         type = 'city';
     } else if (value === 'house' || value === 'street') {
         type = 'address';
@@ -17,21 +17,22 @@ const successCallback = (response) => {
     return response.features.map(feature => {
         const prop = feature.properties;
 
-        const label = prop.name + ', ' + prop.country
+        const label = prop.label
         return {
             label: label,
-            type: getType(prop.osm_value),
+            type: getType(prop.layer),
         };
     });
 }
 
 const errorCallback = (error) => error.long;
 
+
 export default function requestPelias(term) {
     return (dispatch, getState) => {
         return dispatch(sendRequest(
-            `https://photon.komoot.de/api`,
-            {q: term},
+            `https://search.mapzen.com/v1/autocomplete`,
+            {text: term, api_key: process.env.REACT_APP_MAPZEN_KEY},
             'pelias',
             successCallback,
             errorCallback,
