@@ -19,11 +19,15 @@ class AutocompleteComparator extends Component {
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-md-3">
-                        <Autocomplete title="Bragi" {...this.props.bragi} />
-                    </div>
-                    <div className="col-md-3">
+                    {/* <div className="col-md-3"> */}
+                        {/* <Autocomplete title="Bragi" {...this.props.bragi} /> */}
+                    {/* </div> */}
+                    {/* <div className="col-md-3">
                         <Autocomplete title="Kraken" {...this.props.kraken} />
+                    </div> */}
+                    <div className="col-md-3">
+                        <Autocomplete title="Photon" {...this.props.photon} />
+                    </div>
                     </div>
                     <div className="col-md-3">
                         <Autocomplete title="adresse.data.gouv.fr" {...this.props.ban} />
