@@ -28,6 +28,8 @@ class AutocompleteComparator extends Component {
                     <div className="col-md-3">
                         <Autocomplete title="Photon" {...this.props.photon} />
                     </div>
+                    <div className="col-md-3">
+                        <Autocomplete title="Pelias" {...this.props.pelias} />
                     </div>
                     <div className="col-md-3">
                         <Autocomplete title="adresse.data.gouv.fr" {...this.props.ban} />
