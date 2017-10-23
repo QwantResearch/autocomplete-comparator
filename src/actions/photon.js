@@ -17,7 +17,18 @@ const successCallback = (response) => {
     return response.features.map(feature => {
         const prop = feature.properties;
 
-        const label = prop.name + ', ' + prop.country
+        let label;
+        if (prop.housenumber != null) {
+            label = prop.housenumber + " " + prop.street;
+        } else {
+            label = prop.name;
+        }
+        if (prop.city != null) {
+            label += ', ' + prop.city;
+        }
+        if (prop.country != null) {
+            label += ', ' + prop.country;
+        }
         return {
             label: label,
             type: getType(prop.osm_value),
