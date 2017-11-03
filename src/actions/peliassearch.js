@@ -28,12 +28,12 @@ const successCallback = (response) => {
 const errorCallback = (error) => error.long;
 
 
-export default function requestPelias(term) {
+export default function requestPeliasSearch(term) {
     return (dispatch, getState) => {
         return dispatch(sendRequest(
-            `https://search.mapzen.com/v1/autocomplete`,
+            `https://search.mapzen.com/v1/search`,
             {text: term, api_key: process.env.REACT_APP_MAPZEN_KEY},
-            'pelias',
+            'peliassearch',
             successCallback,
             errorCallback,
         ));

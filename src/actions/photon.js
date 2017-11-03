@@ -2,12 +2,14 @@ import sendRequest from './autocomplete';
 
 const getType = (value) => {
     let type;
-    if (value === 'city' || value === 'administrative') {
+    if (value === 'city' || value === 'administrative'|| value === 'town'|| value === 'hamlet') {
         type = 'city';
-    } else if (value === 'house' || value === 'street') {
+    } else if (value === 'house' || value === 'unclassified'|| value === 'primary'|| value === 'residential'|| value === 'secondary') {
         type = 'address';
+    } else if (value === 'station'|| value === 'subway_entrance'|| value === 'tram') {
+          type = 'stop_area';
     } else {
-        type = value;
+        type = 'poi';
     }
 
     return type;
