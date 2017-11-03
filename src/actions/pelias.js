@@ -2,12 +2,12 @@ import sendRequest from './autocomplete';
 
 const getType = (value) => {
     let type;
-    if (value === 'region' || value === 'locality' || value === 'county') {
-        type = 'city';
-    } else if (value === 'house' || value === 'street') {
+     if (value === 'address' || value === 'street') {
         type = 'address';
-    } else {
-        type = value;
+      } else if (value === 'venue' ) {
+          type = 'poi';
+      } else {
+        type = 'city';
     }
 
     return type;
