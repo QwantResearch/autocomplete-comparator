@@ -8,7 +8,7 @@ class Autocomplete extends React.PureComponent {
         const {title, error, items, request_time} = this.props;
 
         let requestTime = null;
-        if (items.length > 0) {
+        if (items && items.length > 0) {
             requestTime = <div className="badge badge-info rounded-0">{request_time} ms</div>;
         }
 
@@ -25,7 +25,7 @@ class Autocomplete extends React.PureComponent {
                         </div>}
                     {!error &&
                         <ul className="list-group list-group-flush">
-                            {items.map((item, i) => {
+                            {items && items.map((item, i) => {
                                 const liClass = classNames({
                                     'list-group-item': true,
                                     'type-logo': item.type !== null,
