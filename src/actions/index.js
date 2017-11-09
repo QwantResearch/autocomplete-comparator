@@ -1,6 +1,10 @@
 import * as types from  '../constants/ActionTypes'
 import requestBragi from './bragi';
+import requestPhoton from './photon';
+import requestPelias from './pelias';
+import requestPeliasSearch from './peliassearch';
 import requestKraken from './kraken';
+import requestNavitia from './navitia';
 import requestBan from './ban';
 import requestGooglePlaces from './google';
 
@@ -27,6 +31,10 @@ export const requestAutocompletes = (term = null) => {
         }
         Promise.all([
             dispatch(requestBragi(term)),
+            dispatch(requestPelias(term)),
+            dispatch(requestPeliasSearch(term)),
+            dispatch(requestNavitia(term)),
+            dispatch(requestPhoton(term)),
             dispatch(requestKraken(term)),
             dispatch(requestBan(term)),
             dispatch(requestGooglePlaces(term)),

@@ -10,7 +10,7 @@ class App extends Component {
         <Navbar />
         <div className="container-fluid">
           <div className="row">
-            <AutocompletesConfig />
+            {/* <AutocompletesConfig /> */}
             <AutocompleteComparator />
           </div>
         </div>
