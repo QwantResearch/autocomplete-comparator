@@ -29,7 +29,7 @@ class AutocompleteComparator extends Component {
                         <Autocomplete title="Photon" {...this.props.photon} />
                     </div>
                     <div className="col-md-2">
-                        <Autocomplete title="Pelias Autocomplete" {...this.props.pelias} />
+                        <Autocomplete title="Bragi" {...this.props.bragi} />
                     </div>
                     <div className="col-md-2">
                         <Autocomplete title="Pelias Search" {...this.props.peliassearch} />
@@ -56,9 +56,9 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators(Actions, dispatch)
-  };
+    return {
+        actions: bindActionCreators(Actions, dispatch)
+    };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AutocompleteComparator);

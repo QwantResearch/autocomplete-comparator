@@ -23,7 +23,7 @@ const errorCallback = (error) => error;
 export default function requestBan(term) {
     return (dispatch) => {
         return dispatch(sendRequest(
-            'http://all.addok.xyz/search',
+            'http://api-adresse.data.gouv.fr/search',
             { q: term },
             'ban',
             successCallback,

@@ -29,7 +29,7 @@ const errorCallback = (error) => error.long;
 export default function requestBragi(term) {
     return (dispatch, getState) => {
         return dispatch(sendRequest(
-            `${getState().bragi.inputs.bragi_host}/autocomplete`,
+            `${process.env.REACT_APP_BRAGI_URL}/autocomplete`,
             { q: term},
             'bragi',
             successCallback,
