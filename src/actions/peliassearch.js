@@ -31,7 +31,8 @@ const errorCallback = (error) => error.long;
 export default function requestPeliasSearch(term) {
     return (dispatch, getState) => {
         return dispatch(sendRequest(
-            `https://search.mapzen.com/v1/search`,
+            //`https://search.mapzen.com/v1/search`,
+            `https://places.jawg.io/v1/search`,
             {text: term, api_key: process.env.REACT_APP_MAPZEN_KEY},
             'peliassearch',
             successCallback,
